@@ -1,4 +1,6 @@
-﻿namespace WaitingScreen
+﻿using WaitingScreen.Models;
+
+namespace WaitingScreen
 {
     partial class MainForm
     {
@@ -28,25 +30,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this._screen = new System.Windows.Forms.PictureBox();
+            this._screen = new WaitingScreen.Models.Screen(984, 661);
+            this.components = new System.ComponentModel.Container();
+            this._timer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this._screen)).BeginInit();
             this.SuspendLayout();
             // 
-            // pictureBox1
+            // _screen
             // 
             this._screen.BackColor = System.Drawing.Color.Black;
             this._screen.Dock = System.Windows.Forms.DockStyle.Fill;
             this._screen.Location = new System.Drawing.Point(0, 0);
-            this._screen.Name = "Screen";
-            this._screen.Size = new System.Drawing.Size(800, 450);
+            this._screen.Name = "_screen";
+            this._screen.Size = new System.Drawing.Size(984, 661);
             this._screen.TabIndex = 0;
             this._screen.TabStop = false;
+            this._screen.Paint += new System.Windows.Forms.PaintEventHandler(this.OnPaint);
+            this._screen.MouseClick += new System.Windows.Forms.MouseEventHandler(this.OnClick);
+            this._screen.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.OnDoubleClick);
             // 
-            // Screen
+            // _timer
+            // 
+            this._timer.Interval = 10;
+            this._timer.Tick += new System.EventHandler(this.OnTick);
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(984, 661);
             this.Controls.Add(this._screen);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "MainForm";
@@ -58,7 +70,8 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox _screen;
+        private Screen _screen;
+        private System.Windows.Forms.Timer _timer;
     }
 }
 

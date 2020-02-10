@@ -12,9 +12,41 @@ namespace WaitingScreen
 {
     public partial class MainForm : Form
     {
+
         public MainForm()
         {
             InitializeComponent();
+            _timer.Start();
+        }
+
+        private void OnPaint(object sender, PaintEventArgs e)
+        {
+            foreach (var ball in _screen.Balls)
+            {
+                ball.Move();
+
+                e.Graphics.DrawEllipse(new Pen(ball.Color), ball.Radius);
+                   
+                if (!_screen.Border.Contains(ball.Location))
+                {
+                    ball.ChangeDirection();
+                }             
+            }
+        }
+
+        private void OnTick(object sender, EventArgs e)
+        {
+            _screen.Refresh();
+        }
+
+        private void OnClick(object sender, MouseEventArgs e)
+        {
+            _screen.AddBall(e.Location);
+        }
+
+        private void OnDoubleClick(object sender, MouseEventArgs e)
+        {
+            _screen.RemoveBallByPosition(e.Location);
         }
     }
 }
