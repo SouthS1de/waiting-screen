@@ -22,11 +22,11 @@ namespace WaitingScreen
         {
             foreach (var ball in _screen.Balls)
             {
-                var hasToReverse = _screen.HasToReverseDirection(ball);
+                var hasToReverseDirection = _screen.HasToReverseDirection(ball);
 
-                if (hasToReverse.hasToReverseX || hasToReverse.hasToReverseY)
+                if (hasToReverseDirection.hasToReverseX || hasToReverseDirection.hasToReverseY)
                 {
-                    ball.ChangeDirection(hasToReverse.hasToReverseX, hasToReverse.hasToReverseY);
+                    ball.ChangeDirection(hasToReverseDirection.hasToReverseX, hasToReverseDirection.hasToReverseY);
                 }
 
                 ball.Move();
