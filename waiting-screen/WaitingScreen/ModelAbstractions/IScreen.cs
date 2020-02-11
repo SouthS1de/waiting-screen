@@ -11,9 +11,7 @@ namespace WaitingScreen.ModelAbstractions
         Rectangle Border { get; }
         void AddBall(Ball newBall);
         void AddBall(Point newBallLocation);
-        Ball GetBallById(Guid ballId);
-        void RemoveBallById(Guid ballId);
-        Ball GetBallByPosition(Point ballPosition);
-        void RemoveBallByPosition(Point ballPosition);
+        Ball GetBall(Point ballPosition);
+        void RemoveBall(Point ballPosition);
     }
 }

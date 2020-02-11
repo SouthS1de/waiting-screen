@@ -6,12 +6,11 @@ namespace WaitingScreen.ModelAbstractions
 {
     public interface IBall
     {
-        Guid Id { get; }
         Point Location { get; }
         Rectangle Radius { get; }
         Color Color { get; }
         Direction Direction { get; }
-        void ChangeDirection();
+        void ChangeDirection(bool rotateX, bool rotateY);
         void Move();
         bool IsInRadius(Point touchPosition);
     }

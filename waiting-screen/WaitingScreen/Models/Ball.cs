@@ -10,7 +10,6 @@ namespace WaitingScreen.Models
 {
     public class Ball : IBall
     {
-        public Guid Id { get; private set; }
         public Point Location { get; private set; }
         public Rectangle Radius { get; private set; }
         public Color Color { get; private set; }
@@ -18,16 +17,28 @@ namespace WaitingScreen.Models
 
         public Ball(Point location)
         {
-            Id = Guid.NewGuid();
-            Location = new Point(location.X + 32, location.Y + 32);
+            Location = new Point(location.X - 32, location.Y - 32);
             Radius = new Rectangle(location.X, location.Y, 64, 64);
             Color = GetRandomColor();
             Direction = Direction.NewDirection();
         }
 
-        public void ChangeDirection()
+        public void ChangeDirection(bool rotateX, bool rotateY)
         {
-            Direction = Direction.NewDirection();
+            var reverseX = 0;
+            var reverseY = 0;
+
+            if (rotateX)
+            {
+                reverseX = -Direction.Value.X;
+            }
+
+            if (rotateY)
+            {
+                reverseY = -Direction.Value.Y;
+            }
+
+            Direction = new Direction(reverseX, reverseY);
         }
 
         public void Move()
@@ -43,7 +54,7 @@ namespace WaitingScreen.Models
 
         private Color GetRandomColor()
         {
-            var randomValue = new Random(DateTimeOffset.UtcNow.Millisecond);
+            var randomValue = new Random();
             var red = randomValue.Next(255);
             var green = randomValue.Next(255);
             var blue = randomValue.Next(255);

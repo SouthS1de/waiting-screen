@@ -30,7 +30,7 @@ namespace WaitingScreen
         /// </summary>
         private void InitializeComponent()
         {
-            this._screen = new WaitingScreen.Models.Screen(984, 661);
+            this._screen = new Screen(984, 661);
             this.components = new System.ComponentModel.Container();
             this._timer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this._screen)).BeginInit();
@@ -47,11 +47,10 @@ namespace WaitingScreen
             this._screen.TabStop = false;
             this._screen.Paint += new System.Windows.Forms.PaintEventHandler(this.OnPaint);
             this._screen.MouseClick += new System.Windows.Forms.MouseEventHandler(this.OnClick);
-            this._screen.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.OnDoubleClick);
             // 
             // _timer
             // 
-            this._timer.Interval = 10;
+            this._timer.Interval = 50;
             this._timer.Tick += new System.EventHandler(this.OnTick);
             // 
             // MainForm

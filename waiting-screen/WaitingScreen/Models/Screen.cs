@@ -29,28 +29,29 @@ namespace WaitingScreen.Models
             AddBall(newBall);
         }
 
-        public Ball GetBallById(Guid ballId)
-        {
-            return Balls.FirstOrDefault(x => x.Id == ballId);
-        }
-
-        public Ball GetBallByPosition(Point ballPosition)
+        public Ball GetBall(Point ballPosition)
         {
             return Balls.FirstOrDefault(x => x.Radius.Contains(ballPosition));
         }
 
-        public void RemoveBallById(Guid ballId)
+        public void RemoveBall(Point ballPosition)
         {
-            var selectedBall = GetBallById(ballId);
+            var selectedBall = GetBall(ballPosition);
 
-            Balls.Remove(selectedBall);
+            if (Balls.Contains(selectedBall))
+            {
+                Balls.Remove(selectedBall);
+            }
         }
 
-        public void RemoveBallByPosition(Point ballPosition)
+        public bool IsValidX(int x)
         {
-            var selectedBall = GetBallByPosition(ballPosition);
+            return x >= Border.X && x <= Border.Width - 64;
+        }
 
-            Balls.Remove(selectedBall);
+        public bool IsValidY(int y)
+        {
+            return y >= Border.Y && y <= Border.Height - 64;
         }
     }
 }

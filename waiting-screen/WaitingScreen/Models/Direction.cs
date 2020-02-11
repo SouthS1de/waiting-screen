@@ -8,7 +8,7 @@ namespace WaitingScreen.Models
         private int _xDirection;
         private int _yDirection;
 
-        private Direction(int xDirection, int yDirection)
+        public Direction(int xDirection, int yDirection)
         {
             _xDirection = xDirection;
             _yDirection = yDirection;
@@ -16,8 +16,8 @@ namespace WaitingScreen.Models
 
         public static Direction NewDirection()
         {
-            var x = new Random(DateTimeOffset.UtcNow.Millisecond).Next(-1, 1);
-            var y = new Random(DateTimeOffset.UtcNow.Millisecond).Next(-1, 1);
+            var x = new Random(DateTimeOffset.UtcNow.Second).Next(-10, 10);
+            var y = new Random(DateTimeOffset.UtcNow.Millisecond).Next(-10, 10);
 
             return new Direction(x, y);
         }

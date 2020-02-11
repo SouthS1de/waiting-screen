@@ -12,7 +12,6 @@ namespace WaitingScreen
 {
     public partial class MainForm : Form
     {
-
         public MainForm()
         {
             InitializeComponent();
@@ -23,14 +22,17 @@ namespace WaitingScreen
         {
             foreach (var ball in _screen.Balls)
             {
+                var rotateX = !_screen.IsValidX(ball.Location.X);
+                var rotateY = !_screen.IsValidY(ball.Location.Y);
+
+                if (rotateX || rotateY)
+                {
+                    ball.ChangeDirection(rotateX, rotateY);
+                }
+
                 ball.Move();
 
                 e.Graphics.DrawEllipse(new Pen(ball.Color), ball.Radius);
-                   
-                if (!_screen.Border.Contains(ball.Location))
-                {
-                    ball.ChangeDirection();
-                }             
             }
         }
 
@@ -46,7 +48,7 @@ namespace WaitingScreen
 
         private void OnDoubleClick(object sender, MouseEventArgs e)
         {
-            _screen.RemoveBallByPosition(e.Location);
+            _screen.RemoveBall(e.Location);
         }
     }
 }
