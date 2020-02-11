@@ -11,45 +11,47 @@ namespace WaitingScreen.Models
     public class Ball : IBall
     {
         public Point Location { get; private set; }
-        public Rectangle Radius { get; private set; }
+        public Size Size { get; private set; }
+        public Rectangle Region { get; private set; }
         public Color Color { get; private set; }
         public Direction Direction { get; private set; }
 
-        public Ball(Point location)
+        public Ball(Point location, Size size)
         {
-            Location = new Point(location.X - 32, location.Y - 32);
-            Radius = new Rectangle(location.X, location.Y, 64, 64);
+            Location = new Point(location.X - size.Width / 2, location.Y - size.Height / 2);
+            Size = size;
+            Region = new Rectangle(location, size);
             Color = GetRandomColor();
             Direction = Direction.NewDirection();
         }
 
-        public void ChangeDirection(bool rotateX, bool rotateY)
+        public void ChangeDirection(bool hasToReverseX, bool hasToReverseY)
         {
-            var reverseX = 0;
-            var reverseY = 0;
+            var x = Direction.Value.X;
+            var y = Direction.Value.Y;
 
-            if (rotateX)
+            if (hasToReverseX)
             {
-                reverseX = -Direction.Value.X;
+                x = -x;
             }
 
-            if (rotateY)
+            if (hasToReverseY)
             {
-                reverseY = -Direction.Value.Y;
+                y = -y;
             }
 
-            Direction = new Direction(reverseX, reverseY);
+            Direction = new Direction(x, y);
         }
 
         public void Move()
         {
             Location = new Point(Location.X + Direction.Value.X, Location.Y + Direction.Value.Y);
-            Radius = new Rectangle(Location.X, Location.Y, 64, 64);
+            Region = new Rectangle(Location, Size);
         }
 
         public bool IsInRadius(Point touchPosition)
         {
-            return Radius.Contains(touchPosition);
+            return Region.Contains(touchPosition);
         }
 
         private Color GetRandomColor()

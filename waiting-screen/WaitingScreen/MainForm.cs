@@ -22,17 +22,16 @@ namespace WaitingScreen
         {
             foreach (var ball in _screen.Balls)
             {
-                var rotateX = !_screen.IsValidX(ball.Location.X);
-                var rotateY = !_screen.IsValidY(ball.Location.Y);
+                var hasToReverse = _screen.HasToReverseDirection(ball);
 
-                if (rotateX || rotateY)
+                if (hasToReverse.hasToReverseX || hasToReverse.hasToReverseY)
                 {
-                    ball.ChangeDirection(rotateX, rotateY);
+                    ball.ChangeDirection(hasToReverse.hasToReverseX, hasToReverse.hasToReverseY);
                 }
 
                 ball.Move();
 
-                e.Graphics.DrawEllipse(new Pen(ball.Color), ball.Radius);
+                e.Graphics.DrawEllipse(new Pen(ball.Color), ball.Region);
             }
         }
 
@@ -43,7 +42,9 @@ namespace WaitingScreen
 
         private void OnClick(object sender, MouseEventArgs e)
         {
-            _screen.AddBall(e.Location);
+            var ballSize = new Size(64, 64);
+
+            _screen.AddBall(e.Location, ballSize);
         }
 
         private void OnDoubleClick(object sender, MouseEventArgs e)

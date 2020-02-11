@@ -30,21 +30,14 @@ namespace WaitingScreen
         /// </summary>
         private void InitializeComponent()
         {
-            this._screen = new Screen(984, 661);
+            this._screen = new Screen();
             this.components = new System.ComponentModel.Container();
             this._timer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this._screen)).BeginInit();
             this.SuspendLayout();
-            // 
+            //
             // _screen
-            // 
-            this._screen.BackColor = System.Drawing.Color.Black;
-            this._screen.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._screen.Location = new System.Drawing.Point(0, 0);
-            this._screen.Name = "_screen";
-            this._screen.Size = new System.Drawing.Size(984, 661);
-            this._screen.TabIndex = 0;
-            this._screen.TabStop = false;
+            //
             this._screen.Paint += new System.Windows.Forms.PaintEventHandler(this.OnPaint);
             this._screen.MouseClick += new System.Windows.Forms.MouseEventHandler(this.OnClick);
             // 

@@ -7,7 +7,8 @@ namespace WaitingScreen.ModelAbstractions
     public interface IBall
     {
         Point Location { get; }
-        Rectangle Radius { get; }
+        Size Size { get; }
+        Rectangle Region { get; }
         Color Color { get; }
         Direction Direction { get; }
         void ChangeDirection(bool rotateX, bool rotateY);
