@@ -9,9 +9,10 @@ namespace WaitingScreen.ModelAbstractions
     {
         List<Ball> Balls { get; }
         Rectangle Border { get; }
-        void AddBall(Ball newBall);
-        void AddBall(Point newBallLocation);
-        Ball GetBall(Point ballPosition);
-        void RemoveBall(Point ballPosition);
+        void AddBall(Ball ball);
+        void AddBall(Point location, Size size);
+        Ball GetBall(Point location);
+        void RemoveBall(Point location);
+        (bool hasToReverseX, bool hasToReverseY) HasToReverseDirection(Ball ball);
     }
 }

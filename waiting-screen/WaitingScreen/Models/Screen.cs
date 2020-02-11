@@ -10,33 +10,36 @@ namespace WaitingScreen.Models
 {
     public class Screen : PictureBox, IScreen
     {
-        public List<Ball> Balls { get; private set; } = new List<Ball>();
+        public List<Ball> Balls { get; private set; }
         public Rectangle Border { get; private set; }
 
-        public Screen(int width, int height)
+        public Screen()
         {
-            Border = new Rectangle(0, 0, width, height);
+            InitiateScreen();
+
+            Balls = new List<Ball>();
+            Border = new Rectangle(Location, Size);
         }
 
-        public void AddBall(Ball newBall)
+        public void AddBall(Ball ball)
         {
-            Balls.Add(newBall);
+            Balls.Add(ball);
         }
 
-        public void AddBall(Point newBallLocation)
+        public void AddBall(Point location, Size size)
         {
-            var newBall = new Ball(newBallLocation);
+            var newBall = new Ball(location, size);
             AddBall(newBall);
         }
 
-        public Ball GetBall(Point ballPosition)
+        public Ball GetBall(Point location)
         {
-            return Balls.FirstOrDefault(x => x.Radius.Contains(ballPosition));
+            return Balls.FirstOrDefault(x => x.Region.Contains(location));
         }
 
-        public void RemoveBall(Point ballPosition)
+        public void RemoveBall(Point location)
         {
-            var selectedBall = GetBall(ballPosition);
+            var selectedBall = GetBall(location);
 
             if (Balls.Contains(selectedBall))
             {
@@ -44,14 +47,26 @@ namespace WaitingScreen.Models
             }
         }
 
-        public bool IsValidX(int x)
+        public (bool hasToReverseX, bool hasToReverseY) HasToReverseDirection(Ball ball)
         {
-            return x >= Border.X && x <= Border.Width - 64;
+            var hasToReverseX = ball.Location.X < Border.X 
+                || ball.Location.X > Border.Size.Width - ball.Region.Width;
+
+            var hasToReverseY =  ball.Location.Y < Border.Y 
+                || ball.Location.Y > Border.Size.Height - ball.Region.Height;
+
+            return (hasToReverseX, hasToReverseY);
         }
 
-        public bool IsValidY(int y)
+        private void InitiateScreen()
         {
-            return y >= Border.Y && y <= Border.Height - 64;
+            BackColor = Color.Black;
+            Dock = DockStyle.Fill;
+            Location = new Point(0, 0);
+            Name = "Screen";
+            Size = new Size(984, 661);
+            TabIndex = 0;
+            TabStop = false;          
         }
     }
 }
