@@ -30,8 +30,8 @@ namespace WaitingScreen
                 }
 
                 ball.Move();
-
-                e.Graphics.DrawEllipse(new Pen(ball.Color), ball.Region);
+                var brush = new SolidBrush(ball.Color);
+                e.Graphics.FillEllipse(brush, ball.Region);
             }
         }
 
